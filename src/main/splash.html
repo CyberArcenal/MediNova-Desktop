@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MediNova - Loading</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: transparent;
+        color: #1e2a3e;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        overflow: hidden;
+      }
+      /* Clean medical card style */
+      .container {
+        max-width: 420px;
+        width: 90%;
+        background: #ffffff;
+        border-radius: 24px;
+        box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+        padding: 2rem 1.8rem;
+        border: 1px solid rgba(44, 110, 158, 0.2);
+      }
+      /* Logo container - clinical style */
+      .logo {
+        width: 72px;
+        height: 72px;
+        margin: 0 auto 1.2rem;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 8px 16px -6px rgba(44, 110, 158, 0.3);
+        background: linear-gradient(135deg, #2c6e9e, #1b4f73);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 0;
+        font-size: 0;
+      }
+      .logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        margin: 0;
+        padding: 0;
+        border: none;
+      }
+      .fallback-svg {
+        width: 40px;
+        height: 40px;
+        display: block;
+      }
+      h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        background: linear-gradient(135deg, #1b4f73, #2c6e9e);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        margin-bottom: 0.25rem;
+      }
+      .sub {
+        font-size: 0.75rem;
+        color: #5a9bc0;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 1.8rem;
+        font-weight: 500;
+      }
+      .progress-bar {
+        width: 100%;
+        height: 4px;
+        background: #e2e8f0;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 1rem;
+      }
+      .progress-fill {
+        width: 0%;
+        height: 100%;
+        background: #2c6e9e;
+        border-radius: 10px;
+        animation: loading 2.2s ease-in-out infinite;
+      }
+      .loading-text {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #4a5568;
+        margin-bottom: 1rem;
+        min-height: 2rem;
+        transition: opacity 0.2s;
+      }
+      .version {
+        margin-top: 2rem;
+        font-size: 0.7rem;
+        color: #94a3b8;
+      }
+      @keyframes loading {
+        0% {
+          width: 0%;
+          opacity: 0.6;
+        }
+        50% {
+          width: 100%;
+          opacity: 1;
+        }
+        100% {
+          width: 0%;
+          opacity: 0.6;
+        }
+      }
+      .ready {
+        color: #2c6e9e;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo" id="logo-container">
+        <img
+          id="app-icon"
+          src="../assets/icon.png"
+          alt="MediNova"
+          onerror="this.onerror=null; showFallbackIcon();"
+        />
+      </div>
+      <h1>MediNova</h1>
+      <div class="sub">Admin • Staff • Clinic Management</div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="loading-text" id="loading-text">Initializing...</div>
+
+      <div class="version" id="version-text">...</div>
+    </div>
+
+    <script>
+      // Medical-themed fallback SVG (stylized cross / caduceus minimal)
+      function showFallbackIcon() {
+        const container = document.getElementById('logo-container');
+        if (!container || container.querySelector('.fallback-svg')) return;
+        
+        container.innerHTML = '';
+        
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('width', '40');
+        svg.setAttribute('height', '40');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('fill', 'white');
+        svg.classList.add('fallback-svg');
+        
+        // Medical cross + subtle leaf for aesthetic touch
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2V7zm0 8h2v2h-2v-2z');
+        svg.appendChild(path);
+        container.appendChild(svg);
+        container.style.background = 'linear-gradient(135deg, #2c6e9e, #1b4f73)';
+        console.log('Using fallback medical icon');
+      }
+      
+      const iconImg = document.getElementById('app-icon');
+      if (iconImg) {
+        iconImg.onerror = () => showFallbackIcon();
+        iconImg.onload = () => console.log('App icon loaded');
+      } else {
+        showFallbackIcon();
+      }
+
+      // Clinic-themed loading messages
+      const loadingMessages = [
+        "Loading modules...",
+        "Connecting to clinic database...",
+        "Loading patient records...",
+        "Syncing appointments and schedules...",
+        "Loading staff directory...",
+        "Preparing billing system...",
+        "Almost ready...",
+        "Welcome to MediNova! 🩺",
+      ];
+      let step = 0;
+      const loadingEl = document.getElementById("loading-text");
+      let msgInterval = setInterval(() => {
+        loadingEl.style.opacity = "0.5";
+        setTimeout(() => {
+          step = (step + 1) % loadingMessages.length;
+          loadingEl.textContent = loadingMessages[step];
+          loadingEl.style.opacity = "1";
+        }, 150);
+      }, 1800);
+
+      // Mark as ready when renderer signals
+      if (window.backendAPI && window.backendAPI.on) {
+        window.backendAPI.on('app:renderer-ready', () => {
+          clearInterval(msgInterval);
+          loadingEl.textContent = 'Ready!';
+          loadingEl.classList.add('ready');
+          const fill = document.getElementById('progress-fill');
+          if (fill) {
+            fill.style.animation = 'none';
+            fill.style.width = '100%';
+          }
+        });
+      } else {
+        console.warn("backendAPI not available, cannot listen to renderer-ready");
+      }
+
+      // Fallback timeout: ensure splash closes even if renderer-ready never fires
+      setTimeout(() => {
+        clearInterval(msgInterval);
+        loadingEl.textContent = 'Ready!';
+        loadingEl.classList.add('ready');
+        const fill = document.getElementById('progress-fill');
+        if (fill) {
+          fill.style.animation = 'none';
+          fill.style.width = '100%';
+        }
+      }, 8000);
+
+      // Fetch and display real version from main process
+      if (window.backendAPI && window.backendAPI.appInfo) {
+        window.backendAPI.appInfo().then(info => {
+          const versionEl = document.getElementById('version-text');
+          if (versionEl && info.version) {
+            versionEl.textContent = `v${info.version}`;
+          }
+        }).catch(() => {});
+      }
+    </script>
+  </body>
+</html>

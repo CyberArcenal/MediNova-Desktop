@@ -1,0 +1,6 @@
+src/main/config/env.js
+.env
+node_modules
+Generate-Modules.ps1
+package-lock.json
+src/seeders/seedData.js
