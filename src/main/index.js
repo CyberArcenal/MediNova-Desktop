@@ -197,18 +197,18 @@ function getIconPath() {
     }[platform] || "icon.png";
 
   const possiblePaths = [
-    path.resolve(__dirname, "..", "..", "build", iconFile),
-    path.resolve(__dirname, "..", "..", "resources", "build", iconFile),
-    path.join(process.resourcesPath, "build", iconFile),
+    path.resolve(__dirname, "..", "..", "icons", iconFile),
+    path.resolve(__dirname, "..", "..", "resources", "icons", iconFile),
+    path.join(process.resourcesPath, "icons", iconFile),
     path.join(process.resourcesPath, iconFile),
     path.join(
       process.resourcesPath,
       "..",
       "app.asar.unpacked",
-      "build",
+      "icons",
       iconFile,
     ),
-    path.join(app.getAppPath(), "build", iconFile),
+    path.join(app.getAppPath(), "icons", iconFile),
     path.join(app.getAppPath(), iconFile),
     path.join(path.dirname(app.getPath("exe")), iconFile),
   ];

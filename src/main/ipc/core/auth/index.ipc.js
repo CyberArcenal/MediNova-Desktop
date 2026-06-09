@@ -29,6 +29,13 @@ async function handleAuthRequest(event, payload) {
       if (tokens.token) settingsService.setTokens(tokens.token, tokens.refreshToken);
       return tokens;
     }
+    // ---------- Utility methods ----------
+    case 'isLoggedIn':
+      return authService.isLoggedIn();
+    case 'getAccessToken':
+      return authService.getAccessToken();
+    case 'revokeAllTokens':
+      return await authService.revokeAllTokens();
     default:
       throw new Error(`Unknown auth method: ${method}`);
   }

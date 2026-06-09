@@ -2,9 +2,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Bell, Check, Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { notificationStoreAPI, type StoredNotification } from '../../../api/core/notification-store';
-import { dialogs } from '../../../utils/dialogs';
-
+import { dialogs } from '../../../utils/dialogs'; // tiyakin na may dialogs utility o palitan ng window.confirm
+import type { NotificationResponseDto } from '../../../api/core/notifications';
+import authAPI from '../../../api/core/auth';
+import notificationsAPI from '../../../api/core/notifications';
 
 interface NotificationsDropdownProps {
   onNotificationCountChange?: (count: number) => void;
@@ -14,25 +15,47 @@ const NotificationsDropdown: React.FC<NotificationsDropdownProps> = ({ onNotific
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const [animIn, setAnimIn] = useState(false);
-  const [notifications, setNotifications] = useState<StoredNotification[]>([]);
+  const [notifications, setNotifications] = useState<NotificationResponseDto[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [currentUserId, setCurrentUserId] = useState<number | null>(null);
+
+  // Load current user ID
+  useEffect(() => {
+    const loadUserId = async () => {
+      try {
+        const user = await authAPI.getCurrentUser();
+        setCurrentUserId(user.userId);
+      } catch (err) {
+        console.error("Failed to get current user", err);
+      }
+    };
+    loadUserId();
+  }, []);
 
   const loadNotifications = async () => {
-    const res = await notificationStoreAPI.getAll();
-    if (res.status && res.data) {
-      setNotifications(res.data);
-      const unread = res.data.filter((n) => !n.read).length;
+    if (!currentUserId) return;
+    try {
+      const data = await notificationsAPI.getUserNotifications(currentUserId);
+      setNotifications(data);
+      const unread = data.filter((n) => !n.isRead).length;
       setUnreadCount(unread);
       onNotificationCountChange?.(unread);
+    } catch (err) {
+      console.error("Failed to load notifications", err);
     }
   };
 
   useEffect(() => {
-    loadNotifications();
-    const unsubscribe = window.backendAPI?.on?.('notification:new', loadNotifications);
+    if (currentUserId) {
+      loadNotifications();
+    }
+    // Listen for new notifications via IPC event
+    const unsubscribe = window.backendAPI?.on?.('notification:new', () => {
+      if (currentUserId) loadNotifications();
+    });
     return () => unsubscribe?.();
-  }, []);
+  }, [currentUserId]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -57,25 +80,46 @@ const NotificationsDropdown: React.FC<NotificationsDropdownProps> = ({ onNotific
     }
   };
 
-  const markNotificationRead = async (id: string) => {
-    await notificationStoreAPI.markRead(id);
-    await loadNotifications();
+  const markNotificationRead = async (id: number) => {
+    try {
+      await notificationsAPI.markAsRead(id);
+      await loadNotifications();
+    } catch (err) {
+      console.error("Failed to mark as read", err);
+    }
   };
 
   const markAllRead = async () => {
-    await notificationStoreAPI.markAllRead();
-    await loadNotifications();
+    if (!currentUserId) return;
+    try {
+      await notificationsAPI.markAllAsRead(currentUserId);
+      await loadNotifications();
+    } catch (err) {
+      console.error("Failed to mark all as read", err);
+    }
   };
 
-  const deleteNotification = async (id: string) => {
-    await notificationStoreAPI.delete(id);
-    await loadNotifications();
+  const deleteNotification = async (id: number) => {
+    try {
+      await notificationsAPI.delete(id);
+      await loadNotifications();
+    } catch (err) {
+      console.error("Failed to delete notification", err);
+    }
   };
 
   const clearAll = async () => {
-    if (await dialogs.confirm({ title: 'Clear All', message: 'Delete all notifications?' })) {
-      await notificationStoreAPI.clearAll();
-      await loadNotifications();
+    if (!currentUserId) return;
+    const confirmed = await dialogs.confirm({ title: 'Clear All', message: 'Delete all notifications?' });
+    if (confirmed) {
+      // Note: Walang bulk delete endpoint sa API; gawin na lang iteratively
+      try {
+        const all = await notificationsAPI.getUserNotifications(currentUserId);
+        await Promise.all(all.map(n => notificationsAPI.delete(n.id)));
+        await loadNotifications();
+      } catch (err) {
+        console.error("Failed to clear all notifications", err);
+      }
     }
   };
 
@@ -92,6 +136,8 @@ const NotificationsDropdown: React.FC<NotificationsDropdownProps> = ({ onNotific
     if (diffDays < 7) return `${diffDays}d ago`;
     return date.toLocaleDateString();
   };
+
+  if (!currentUserId) return null; // or loading spinner
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -116,7 +162,7 @@ const NotificationsDropdown: React.FC<NotificationsDropdownProps> = ({ onNotific
           <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border-color)] bg-[var(--sidebar-bg)]">
             <h3 className="font-semibold text-[var(--sidebar-text)]">Notifications</h3>
             <div className="flex gap-2">
-              {notifications.some((n) => !n.read) && (
+              {notifications.some((n) => !n.isRead) && (
                 <button onClick={markAllRead} className="text-xs text-[var(--primary-color)] hover:underline">
                   Mark all read
                 </button>
@@ -136,7 +182,7 @@ const NotificationsDropdown: React.FC<NotificationsDropdownProps> = ({ onNotific
                 <div
                   key={notif.id}
                   className={`px-4 py-3 border-b border-[var(--border-color)] hover:bg-[var(--card-hover-bg)] transition-colors ${
-                    !notif.read ? 'bg-[var(--primary-color)]/5' : ''
+                    !notif.isRead ? 'bg-[var(--primary-color)]/5' : ''
                   }`}
                 >
                   <div className="flex justify-between items-start">
@@ -144,11 +190,11 @@ const NotificationsDropdown: React.FC<NotificationsDropdownProps> = ({ onNotific
                       <p className="text-sm font-medium text-[var(--sidebar-text)]">{notif.title}</p>
                       <p className="text-xs text-[var(--text-secondary)] mt-1">{notif.message}</p>
                       <p className="text-xs text-[var(--text-tertiary)] mt-1">
-                        {formatRelativeTime(notif.timestamp)}
+                        {formatRelativeTime(notif.createdAt)}
                       </p>
                     </div>
                     <div className="flex gap-1 ml-2">
-                      {!notif.read && (
+                      {!notif.isRead && (
                         <button
                           onClick={() => markNotificationRead(notif.id)}
                           className="p-1 rounded-md hover:bg-[var(--primary-color)]/20 text-[var(--primary-color)]"

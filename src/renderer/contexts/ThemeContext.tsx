@@ -1,3 +1,4 @@
+// src/contexts/ThemeContext.tsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { themesAPI } from '../api/core/themes';
 
@@ -15,51 +16,86 @@ export const useTheme = () => {
   return context;
 };
 
-// Light theme CSS variables (override dark defaults)
+// Light theme - clinical, clean, medical blue
 const lightThemeVars = {
-  '--background-color': '#ffffff',
-  '--sidebar-bg': '#f7f7f9',
-  '--sidebar-border': '#e0e0e6',
-  '--sidebar-text': '#0e0e10',
+  '--background-color': '#f8fafc',
+  '--sidebar-bg': '#ffffff',
+  '--sidebar-border': '#e2e8f0',
+  '--sidebar-text': '#1e293b',
   '--card-bg': '#ffffff',
-  '--card-secondary-bg': '#f2f2f5',
-  '--card-hover-bg': '#e8e8ec',
-  '--card-border': '#e2e2e2',
-  '--border-color': '#e0e0e6',
-  '--border-light': '#e8e8ec',
-  '--text-primary': '#0e0e10',
-  '--text-secondary': '#53535f',
-  '--text-tertiary': '#7a7a8c',
-  '--input-bg': '#f2f2f5',
-  '--input-border': '#e0e0e6',
-  '--btn-secondary-bg': '#e8e8ec',
-  '--btn-secondary-hover': '#d9d9e0',
-  '--btn-secondary-text': '#0e0e10',
-  '--status-success-bg': 'rgba(0, 181, 184, 0.1)',
-  '--status-inactive-bg': 'rgba(90, 90, 112, 0.1)',
+  '--card-secondary-bg': '#f1f5f9',
+  '--card-hover-bg': '#f8fafc',
+  '--card-border': '#e2e8f0',
+  '--border-color': '#e2e8f0',
+  '--border-light': '#e2e8f0',
+  '--text-primary': '#1e293b',
+  '--text-secondary': '#475569',
+  '--text-tertiary': '#94a3b8',
+  '--input-bg': '#ffffff',
+  '--input-border': '#cbd5e1',
+  '--btn-secondary-bg': '#f1f5f9',
+  '--btn-secondary-hover': '#e2e8f0',
+  '--btn-secondary-text': '#1e293b',
+  '--status-success-bg': 'rgba(46, 125, 100, 0.1)',
+  '--status-inactive-bg': 'rgba(100, 116, 139, 0.1)',
+  // Primary color (medical blue)
+  '--primary-color': '#2c6e9e',
+  '--primary-hover': '#1b4f73',
+  '--accent-blue': '#2c6e9e',
+  '--accent-blue-hover': '#1b4f73',
+  '--accent-blue-light': '#eef2ff',
+  // Other accents
+  '--accent-green': '#2e7d64',
+  '--accent-green-hover': '#236151',
+  '--accent-orange': '#e6a017',
+  '--accent-orange-hover': '#c48a12',
+  '--accent-red': '#c73e3e',
+  '--accent-red-hover': '#a83232',
+  '--accent-purple': '#7c3aed',
+  '--accent-purple-hover': '#6d28d9',
+  '--accent-emerald': '#10b981',
+  '--accent-emerald-hover': '#059669',
 };
 
+// Dark theme - softer, medical blue accents, less harsh
 const darkThemeVars = {
-  '--background-color': '#0e0e10',
-  '--sidebar-bg': '#1f1f2b',
-  '--sidebar-border': '#2d2d3a',
-  '--sidebar-text': '#efeff1',
-  '--card-bg': '#1f1f23',
-  '--card-border': '#2a2a2e',
-  '--card-secondary-bg': '#18181b',
-  '--card-hover-bg': '#2a2a35',
-  '--border-color': '#2d2d3a',
-  '--border-light': '#3a3a4a',
-  '--text-primary': '#efeff1',
-  '--text-secondary': '#adadb8',
-  '--text-tertiary': '#7a7a8c',
-  '--input-bg': '#2d2d3a',
-  '--input-border': '#3a3a4a',
-  '--btn-secondary-bg': '#2d2d3a',
-  '--btn-secondary-hover': '#3a3a4a',
-  '--btn-secondary-text': '#efeff1',
-  '--status-success-bg': 'rgba(0, 181, 184, 0.15)',
-  '--status-inactive-bg': 'rgba(90, 90, 112, 0.15)',
+  '--background-color': '#0f172a',
+  '--sidebar-bg': '#1e293b',
+  '--sidebar-border': '#334155',
+  '--sidebar-text': '#f1f5f9',
+  '--card-bg': '#1e293b',
+  '--card-border': '#334155',
+  '--card-secondary-bg': '#0f172a',
+  '--card-hover-bg': '#334155',
+  '--border-color': '#334155',
+  '--border-light': '#475569',
+  '--text-primary': '#f1f5f9',
+  '--text-secondary': '#cbd5e1',
+  '--text-tertiary': '#94a3b8',
+  '--input-bg': '#334155',
+  '--input-border': '#475569',
+  '--btn-secondary-bg': '#334155',
+  '--btn-secondary-hover': '#475569',
+  '--btn-secondary-text': '#f1f5f9',
+  '--status-success-bg': 'rgba(46, 125, 100, 0.2)',
+  '--status-inactive-bg': 'rgba(148, 163, 184, 0.2)',
+  // Primary color (medical blue, slightly brighter for dark mode)
+  '--primary-color': '#3b82f6',
+  '--primary-hover': '#2563eb',
+  '--accent-blue': '#3b82f6',
+  '--accent-blue-hover': '#2563eb',
+  '--accent-blue-light': '#1e3a8a',
+  // Other accents
+  '--accent-green': '#10b981',
+  '--accent-green-hover': '#059669',
+  '--accent-orange': '#f59e0b',
+  '--accent-orange-hover': '#d97706',
+  '--accent-red': '#ef4444',
+  '--accent-red-hover': '#dc2626',
+  '--accent-purple': '#a78bfa',
+  '--accent-purple-hover': '#8b5cf6',
+  '--accent-emerald': '#34d399',
+  '--accent-emerald-hover': '#10b981',
 };
 
 const applyTheme = (theme: 'light' | 'dark') => {
@@ -71,7 +107,7 @@ const applyTheme = (theme: 'light' | 'dark') => {
 };
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<'light' | 'dark'>('dark');
+  const [theme, setThemeState] = useState<'light' | 'dark'>('light'); // Default to light for medical
 
   const loadTheme = async () => {
     try {
@@ -79,6 +115,12 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       if (res.status && res.data) {
         setThemeState(res.data);
         applyTheme(res.data);
+      } else {
+        // Fallback to system preference or light
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const defaultTheme = prefersDark ? 'dark' : 'light';
+        setThemeState(defaultTheme);
+        applyTheme(defaultTheme);
       }
     } catch (err) {
       console.error('Failed to load theme', err);

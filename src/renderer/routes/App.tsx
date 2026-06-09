@@ -3,6 +3,8 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Layout from "../layouts/Layout";
 import HelpPage from "../pages/help";
+import authAPI from "../api/core/auth";
+import Login from "../pages/auth/login";
 
 
 // ─── Generic Placeholder (for pages not yet built) ─────────────
@@ -41,10 +43,9 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        // const { authAPI } = await import("../api/core/auth");
-        // const result = await authAPI.isLoggedIn();
-        // setIsAuthenticated(result.data);
-        // if (!result.data) navigate("/login", { replace: true });
+        const result = await authAPI.isLoggedIn();
+        setIsAuthenticated(result);
+        if (!result) navigate("/login", { replace: true });
       } catch (err) {
         console.error("Auth check failed", err);
         navigate("/login", { replace: true });
@@ -78,7 +79,7 @@ function App() {
   return (
     <Routes>
       {/* Public routes */}
-      <Route path="/login" element={<LoginPage />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/help" element={<HelpPage />} />
 
       {/* Protected routes (require login) */}

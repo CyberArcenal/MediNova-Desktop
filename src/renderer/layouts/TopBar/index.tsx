@@ -1,46 +1,72 @@
 // src/layouts/TopBar.tsx
-import React from 'react';
-import TopBarLeft from './components/TopBarLeft';
-import NotificationsDropdown from './components/NotificationsDropdown';
-import LoginButton from './components/LoginButton';
-import { useState, useEffect } from 'react';
-
-import SearchBar from '../../components/Shared/SearchBar';
+import React, { useState, useEffect } from "react";
+import { Menu, Search, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import NotificationsDropdown from "./components/NotificationsDropdown";
+import authAPI from "../../api/core/auth";
+import { useAuth } from "../../hooks/useAuth";
+import ThemeToggle from "../../components/Shared/ThemeToggle";
+import TopBarLeft from "./components/TopBarLeft";
 
 interface TopBarProps {
   toggleSidebar: () => void;
 }
 
 const TopBar: React.FC<TopBarProps> = ({ toggleSidebar }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const loggedIn = await authAPI.isLoggedIn();
-      setIsLoggedIn(loggedIn.data);
-    };
-    checkAuth();
-    const unsubscribe = window.backendAPI?.on?.('auth:changed', checkAuth);
-    return () => unsubscribe?.();
-  }, []);
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      // Navigate to search results page, or trigger global search
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+    }
+  };
 
   return (
-    <header className="sticky top-0 z-40 bg-[var(--sidebar-bg)] border-b border-[var(--sidebar-border)] flex items-center justify-between px-4 py-2 shadow-lg rounded-2xl mx-2 mt-2 backdrop-blur-sm bg-opacity-95">
-      <TopBarLeft toggleSidebar={toggleSidebar} />
+    <div className="flex items-center justify-between gap-3 px-4 py-3 border-[var(--border-color)] bg-transparent">
+      {/* Left section: hamburger + logo/title */}
+      <TopBarLeft
+        toggleSidebar={toggleSidebar}
+      />
 
-      <div className="flex-1 max-w-xl mx-4">
-        <SearchBar />
+      {/* Center: search bar */}
+      <div className="flex-1 max-w-md mx-4">
+        <form onSubmit={handleSearch} className="relative">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search clients, appointments, treatments..."
+            className="w-full pl-10 pr-4 py-2 rounded-xl bg-[var(--input-bg)] border border-[var(--input-border)] text-[var(--text-primary)] placeholder-[var(--text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:border-transparent transition-all"
+          />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[var(--text-tertiary)]" />
+        </form>
       </div>
 
-      <div className="flex items-center gap-3">
-        {/* Show following avatars only in fullscreen and logged in */}
-        {isLoggedIn && <FollowingAvatars />}
-        
+      {/* Right section: notifications + avatar */}
+      <div className="flex items-center gap-2">
+        <ThemeToggle />
         <NotificationsDropdown />
-        <WhispersDropdown />
-        {isLoggedIn ? <UserMenu /> : <LoginButton />}
+
+        {/* Avatar / Profile button */}
+        <button
+          onClick={() => navigate("/profile")}
+          className="flex items-center gap-2 p-1.5 rounded-xl hover:bg-[var(--card-hover-bg)] transition-all duration-200"
+          aria-label="Profile"
+        >
+          {user?.fullName ? (
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--primary-color)] to-[var(--primary-hover)] flex items-center justify-center text-white font-medium text-sm">
+              {user.fullName.charAt(0).toUpperCase()}
+            </div>
+          ) : (
+            <User className="w-5 h-5 text-[var(--text-secondary)]" />
+          )}
+        </button>
       </div>
-    </header>
+    </div>
   );
 };
 

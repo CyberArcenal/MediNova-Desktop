@@ -1,4 +1,4 @@
-// src/layouts/Sidebar.tsx – Complete refactored version
+// src/layouts/Sidebar.tsx
 import React from "react";
 import { menuItems, categories } from "./components/SidebarMenuData";
 import SidebarHeader from "./components/SidebarHeader";
@@ -11,7 +11,6 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
-  // Filter out invalid paths and empty children
   const filteredMenu = menuItems
     .map((item) => {
       if (item.children) {
@@ -35,10 +34,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
         bg-[var(--sidebar-bg)] border-r border-[var(--sidebar-border)]
         rounded-r-3xl shadow-2xl
         transform transition-all duration-300 ease-in-out
-        z-30 flex flex-col h-screen
+        z-30 flex flex-col
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
         md:translate-x-0
         md:${isOpen ? "w-64" : "w-20"}
+        h-full
       `}
     >
       <SidebarHeader isOpen={isOpen} />

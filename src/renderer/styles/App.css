@@ -1,78 +1,78 @@
 @import "tailwindcss";
 
-/* Reset and Base Styles - Twitch Theme */
+/* Reset and Base Styles - MediNova Light Medical Theme */
 :root {
-  --primary-color: #9146ff;      /* Twitch purple */
-  --primary-hover: #772ce8;      /* Darker purple */
-  --secondary-color: #5a5a70;
-  --success-color: #00b5b8;
-  --warning-color: #ffb347;
-  --danger-color: #ff4c4c;
+  --primary-color: #2c6e9e;       /* Medical blue primary */
+  --primary-hover: #1b4f73;       /* Darker blue */
+  --secondary-color: #5a6e7c;
+  --success-color: #2e7d64;
+  --warning-color: #e6a017;
+  --danger-color: #c73e3e;
 
-  /* Dark theme backgrounds (Twitch style) */
-  --background-color: #0e0e10;   /* Main background dark */
-  --sidebar-bg: #1f1f2b;         /* Sidebar dark purple-gray */
-  --sidebar-border: #2d2d3a;     /* Border */
-  --sidebar-text: #efeff1;       /* Light text */
-  --header-bg: #18181b;          /* Header background */
+  /* Light theme backgrounds (clean, clinical) */
+  --background-color: #f8fafc;    /* Main background off-white */
+  --sidebar-bg: #ffffff;          /* Sidebar white */
+  --sidebar-border: #e2e8f0;      /* Light border */
+  --sidebar-text: #1e293b;        /* Dark slate text */
+  --header-bg: #ffffff;           /* Header white */
 
   /* Text colors */
-  --text-primary: #efeff1;
-  --text-secondary: #adadb8;
-  --text-tertiary: #7a7a8c;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-tertiary: #94a3b8;
 
   /* Shadows */
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
 
-  /* Accent colors - purple & white */
-  --accent-blue: #9146ff;        /* Using purple as primary accent */
-  --accent-blue-hover: #772ce8;
-  --accent-blue-light: #2a1a4a;
+  /* Accent colors - medical blues & teals */
+  --accent-blue: #2c6e9e;
+  --accent-blue-hover: #1b4f73;
+  --accent-blue-light: #eef2ff;
 
-  --accent-green: #00b5b8;
-  --accent-green-hover: #00999c;
-  --accent-green-light: #003a3c;
+  --accent-green: #2e7d64;
+  --accent-green-hover: #236151;
+  --accent-green-light: #e6f4ef;
 
-  --accent-orange: #ffb347;
-  --accent-orange-hover: #e69500;
-  --accent-orange-light: #4a3500;
+  --accent-orange: #e6a017;
+  --accent-orange-hover: #c48a12;
+  --accent-orange-light: #fff4e6;
 
-  --accent-purple: #a970ff;
-  --accent-purple-hover: #9146ff;
-  --accent-purple-light: #3a1c7a;
+  --accent-purple: #7c3aed;       /* Soft purple accent (optional) */
+  --accent-purple-hover: #6d28d9;
+  --accent-purple-light: #f0e9ff;
 
-  --accent-indigo: #6366f1;
-  --accent-indigo-light: #1e1b4b;
+  --accent-indigo: #4f46e5;
+  --accent-indigo-light: #eef2ff;
 
-  --accent-red: #ff4c4c;
-  --accent-red-light: #4a1a1a;
+  --accent-red: #c73e3e;
+  --accent-red-light: #fef2f2;
 
   --accent-emerald: #10b981;
-  --accent-emerald-light: #064e3b;
+  --accent-emerald-light: #ecfdf5;
 
   /* Card backgrounds */
-  --card-bg: #1f1f2b;
-  --card-secondary-bg: #18181b;
+  --card-bg: #ffffff;
+  --card-secondary-bg: #f1f5f9;
 
   /* Borders */
-  --border-color: #2d2d3a;
-  --border-light: #3a3a4a;
+  --border-color: #e2e8f0;
+  --border-light: #e2e8f0;
 
   /* Status colors */
-  --status-success-bg: rgba(0, 181, 184, 0.15);
-  --status-success-text: #00b5b8;
-  --status-inactive-bg: rgba(90, 90, 112, 0.15);
-  --status-inactive-text: #adadb8;
+  --status-success-bg: rgba(46, 125, 100, 0.1);
+  --status-success-text: #2e7d64;
+  --status-inactive-bg: rgba(100, 116, 139, 0.1);
+  --status-inactive-text: #64748b;
 
   /* Hover states */
-  --card-hover-bg: #2a2a35;
-  --danger-hover: #ff4c4c;
-  --danger-hover-light: rgba(255, 76, 76, 0.2);
+  --card-hover-bg: #f8fafc;
+  --danger-hover: #c73e3e;
+  --danger-hover-light: rgba(199, 62, 62, 0.1);
 
   /* Form elements */
-  --input-bg: #2d2d3a;
-  --input-text: #efeff1;
-  --input-border: #3a3a4a;
+  --input-bg: #ffffff;
+  --input-text: #1e293b;
+  --input-border: #cbd5e1;
   --input-focus-ring: var(--accent-blue);
 
   /* Buttons */
@@ -80,10 +80,10 @@
   --btn-primary-hover: var(--accent-blue-hover);
   --btn-primary-text: #ffffff;
 
-  --btn-secondary-bg: #2d2d3a;
-  --btn-secondary-hover: #3a3a4a;
-  --btn-secondary-text: #efeff1;
-  --btn-secondary-border: #3a3a4a;
+  --btn-secondary-bg: #f1f5f9;
+  --btn-secondary-hover: #e2e8f0;
+  --btn-secondary-text: #1e293b;
+  --btn-secondary-border: #cbd5e1;
 
   --btn-success-bg: var(--accent-green);
   --btn-success-hover: var(--accent-green-hover);
@@ -102,7 +102,7 @@
   --btn-purple-text: #ffffff;
 
   --btn-emerald-bg: var(--accent-emerald);
-  --btn-emerald-hover: var(--accent-green-hover);
+  --btn-emerald-hover: #059669;
   --btn-emerald-text: #ffffff;
 
   /* Size variables (unchanged) */
@@ -135,7 +135,7 @@
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
 
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
 
   --btn-padding-xs: 0.25rem 0.5rem;
   --btn-padding-sm: 0.5rem 1rem;
@@ -155,34 +155,34 @@ body {
   line-height: 1.5;
 }
 
-/* Custom scrollbar - Twitch purple */
+/* Custom scrollbar - medical blue */
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: linear-gradient(135deg, var(--card-secondary-bg) 0%, var(--card-bg) 100%);
+  background: var(--card-secondary-bg);
   border-radius: var(--radius-lg);
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.05);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #772ce8 0%, #9146ff 100%);
+  background: linear-gradient(135deg, #1b4f73 0%, #2c6e9e 100%);
   border-radius: var(--radius-lg);
   border: 2px solid var(--card-bg);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #9146ff 0%, #a970ff 100%);
+  background: linear-gradient(135deg, #2c6e9e 0%, #3a86b3 100%);
   transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 ::-webkit-scrollbar-thumb:active {
-  background: linear-gradient(135deg, #772ce8 0%, #9146ff 100%);
+  background: linear-gradient(135deg, #1b4f73 0%, #2c6e9e 100%);
   transform: scale(1.02);
 }
 
@@ -198,18 +198,18 @@ body {
 }
 
 .compact-table::-webkit-scrollbar-track {
-  background: linear-gradient(135deg, var(--card-secondary-bg) 0%, var(--card-bg) 100%);
+  background: var(--card-secondary-bg);
   border-radius: var(--radius-md);
 }
 
 .compact-table::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #772ce8 0%, #9146ff 100%);
+  background: linear-gradient(135deg, #1b4f73 0%, #2c6e9e 100%);
   border-radius: var(--radius-md);
   border: 1px solid var(--card-bg);
 }
 
 .compact-table::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #9146ff 0%, #a970ff 100%);
+  background: linear-gradient(135deg, #2c6e9e 0%, #3a86b3 100%);
 }
 
 /* Smooth scrolling */
@@ -220,7 +220,7 @@ html {
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #9146ff var(--card-secondary-bg);
+  scrollbar-color: #2c6e9e var(--card-secondary-bg);
 }
 
 /* Scrollbar animation */
@@ -231,7 +231,7 @@ html {
 
 ::-webkit-scrollbar-thumb:window-inactive {
   animation: scrollbar-pulse 2s infinite;
-  background: linear-gradient(135deg, #5a3a8a 0%, #3a2a5a 100%);
+  background: linear-gradient(135deg, #8aa9c4 0%, #b0c4de 100%);
 }
 
 /* Custom scrollbar container */
@@ -245,13 +245,13 @@ html {
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #9146ff 0%, #772ce8 100%);
+  background: linear-gradient(135deg, #2c6e9e 0%, #1b4f73 100%);
   border-radius: var(--radius-md);
   border: 2px solid var(--card-bg);
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #a970ff 0%, #9146ff 100%);
+  background: linear-gradient(135deg, #3a86b3 0%, #2c6e9e 100%);
 }
 
 /* Hide scrollbar but keep functionality */
@@ -266,7 +266,7 @@ html {
 
 /* Gradient scrollbar special */
 .scrollbar-gradient::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #772ce8 0%, #9146ff 25%, #a970ff 50%, #c0a0ff 75%, #9146ff 100%);
+  background: linear-gradient(135deg, #1b4f73 0%, #2c6e9e 25%, #3a86b3 50%, #5a9bc0 75%, #2c6e9e 100%);
   background-size: 400% 400%;
   animation: gradient-shift 3s ease infinite;
 }
@@ -292,14 +292,14 @@ html {
 }
 
 .topbar {
-  --topbar-bg: #18181b;
-  --topbar-text: #efeff1;
-  --topbar-border: #2d2d3a;
-  --topbar-hover: #9146ff;
-  --topbar-search-bg: #2d2d3a;
-  --topbar-search-border: #3a3a4a;
-  --topbar-search-text: #efeff1;
-  --topbar-search-placeholder: #adadb8;
+  --topbar-bg: #ffffff;
+  --topbar-text: #1e293b;
+  --topbar-border: #e2e8f0;
+  --topbar-hover: #2c6e9e;
+  --topbar-search-bg: #f8fafc;
+  --topbar-search-border: #cbd5e1;
+  --topbar-search-text: #1e293b;
+  --topbar-search-placeholder: #94a3b8;
 }
 
 /* Sidebar */
@@ -316,7 +316,7 @@ html {
 .topbar {
   background: var(--topbar-bg);
   border-bottom: 1px solid var(--topbar-border);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
   color: var(--topbar-text);
 }
 
@@ -345,7 +345,7 @@ html {
 
 /* Profile dropdown */
 .profile-dropdown {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 /* Sidebar scrollbar */
@@ -358,12 +358,12 @@ html {
 }
 
 .sidebar-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(145, 70, 255, 0.3);
+  background: rgba(44, 110, 158, 0.3);
   border-radius: 3px;
 }
 
 .sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(145, 70, 255, 0.5);
+  background: rgba(44, 110, 158, 0.5);
 }
 
 /* Dropdown animation */
@@ -416,16 +416,16 @@ html {
 }
 
 .status-in-stock {
-  background-color: #064e3b;
-  color: #00b5b8;
+  background-color: #e6f4ef;
+  color: #2e7d64;
 }
 .status-low-stock {
-  background-color: #4a3500;
-  color: #ffb347;
+  background-color: #fff4e6;
+  color: #e6a017;
 }
 .status-out-of-stock {
-  background-color: #4a1a1a;
-  color: #ff4c4c;
+  background-color: #fef2f2;
+  color: #c73e3e;
 }
 
 /* Global Size Utilities (unchanged) */
@@ -498,7 +498,7 @@ html {
   transition: background-color 0.2s ease;
 }
 .compact-button:hover {
-  color: #a970ff;
+  color: var(--accent-blue);
 }
 .compact-input {
   padding: var(--size-sm) var(--size-xs) var(--size-sm) var(--size-xl);
@@ -734,7 +734,7 @@ html {
 }
 .thumbnail-button:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Group hover */
@@ -746,10 +746,10 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Gentle glow animation (Twitch purple) */
+/* Gentle glow animation (medical blue) */
 @keyframes gentle-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(145, 70, 255, 0); }
-  50% { box-shadow: 0 0 0 2px rgba(145, 70, 255, 0.3); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(44, 110, 158, 0); }
+  50% { box-shadow: 0 0 0 2px rgba(44, 110, 158, 0.2); }
 }
 .animate-pulse-gentle {
   animation: pulse-gentle 2s infinite, gentle-glow 3s infinite;
@@ -757,7 +757,7 @@ button:disabled {
 .notification-unread:hover {
   transform: translateY(-2px);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(145, 70, 255, 0.4);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.05), 0 0 0 2px rgba(44, 110, 158, 0.3);
 }
 
 /* Additional animations */
@@ -786,70 +786,48 @@ button:disabled {
 }
 .hover-lift:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 .gradient-text {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-purple) 100%);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-blue) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-
-
-
-
-
-.react-select__control {
-  background-color: var(--input-bg) !important;
-  border-color: var(--input-border) !important;
-  color: var(--text-primary) !important;
-}
-.react-select__input {
-  color: var(--text-primary) !important;
-}
-.react-select__single-value {
-  color: var(--text-primary) !important;
-}
-.react-select__menu {
-  background-color: var(--card-bg) !important;
-  border: 1px solid var(--border-color) !important;
-}
-.react-select__option {
-  background-color: var(--card-bg) !important;
-  color: var(--text-primary) !important;
-}
-.react-select__option--is-focused {
-  background-color: var(--card-hover-bg) !important;
-}
-.react-select__option--is-selected {
-  background-color: #9147ff !important;
-  color: white !important;
-}
-.react-select__multi-value {
-  background-color: var(--btn-secondary-bg) !important;
-}
-.react-select__multi-value__label {
-  color: var(--text-primary) !important;
-}
-.react-select__multi-value__remove {
-  color: var(--text-secondary) !important;
-}
-.react-select__multi-value__remove:hover {
-  background-color: #9147ff !important;
-  color: white !important;
+/* Custom Swiper Pagination for Discovery Banner */
+.swiper-pagination-custom {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  bottom: 16px !important;
 }
 
+.swiper-pagination-custom .swiper-pagination-bullet {
+  width: 32px;
+  height: 4px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  transition: all 0.2s ease;
+  margin: 0 !important;
+}
 
+.swiper-pagination-custom .swiper-pagination-bullet-active {
+  background-color: #2c6e9e;
+  width: 48px;
+  box-shadow: 0 0 8px rgba(44, 110, 158, 0.6);
+}
 
+/* Custom navigation button hover effects */
+.swiper-button-prev-custom,
+.swiper-button-next-custom {
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-
-
-
-
-/* Ensure the grid container allows horizontal scroll on very small devices */
-@media (max-width: 640px) {
-  .overflow-auto {
-    -webkit-overflow-scrolling: touch;
-  }
+.swiper-button-prev-custom:hover,
+.swiper-button-next-custom:hover {
+  background-color: #2c6e9e !important;
+  border-color: #2c6e9e;
 }

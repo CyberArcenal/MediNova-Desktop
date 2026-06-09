@@ -1,6 +1,6 @@
 const { settingsService } = require('../../services/settings');
 
-const API_BASE = process.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+const API_BASE = process.env.VITE_API_URL || 'http://localhost:5285/api/v1';
 
 async function backendFetch(endpoint, options = {}) {
   let token = settingsService.getAccessToken();

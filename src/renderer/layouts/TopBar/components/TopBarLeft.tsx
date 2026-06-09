@@ -2,6 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Menu } from 'lucide-react';
+import ThemeToggle from '../../../components/Shared/ThemeToggle';
 
 interface TopBarLeftProps {
   toggleSidebar: () => void;
@@ -20,8 +21,8 @@ const TopBarLeft: React.FC<TopBarLeftProps> = ({ toggleSidebar }) => {
         <Menu className="w-5 h-5" />
       </button>
       <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
-        <span className="text-lg font-bold bg-gradient-to-r from-[#9146ff] to-[#772ce8] bg-clip-text text-transparent hidden sm:inline">
-          Twitch Desktop
+        <span className="text-lg font-bold bg-gradient-to-r from-[var(--primary-color)] to-[var(--primary-hover)] bg-clip-text text-transparent hidden sm:inline">
+          MediNova
         </span>
       </div>
     </div>

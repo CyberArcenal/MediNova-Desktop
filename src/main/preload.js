@@ -30,6 +30,7 @@ contextBridge.exposeInMainWorld("backendAPI", {
     ipcRenderer.invoke("medinova:roles", { method, params }),
   auth: (method, params) =>
     ipcRenderer.invoke("medinova:auth", { method, params }),
+  themes: (payload) => ipcRenderer.invoke("themes", payload),
   // window controls
   minimizeWindow: () => ipcRenderer.send("window:minimize"),
   maximizeWindow: () => ipcRenderer.send("window:maximize"),
