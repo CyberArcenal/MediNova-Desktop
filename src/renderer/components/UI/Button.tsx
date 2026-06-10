@@ -30,6 +30,7 @@ interface ButtonProps {
   className?: string;
   title?: string;
   loading?: boolean;
+  form?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -47,6 +48,7 @@ const Button: React.FC<ButtonProps> = ({
   className = "",
   title,
   loading = false,
+   form,
 }) => {
   const baseClasses = "btn";
   const variantClass = `btn-${variant}`;
@@ -113,6 +115,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       type={type}
+      form={form}
       className={classes}
       onClick={(e) => {
         onClick?.(e);

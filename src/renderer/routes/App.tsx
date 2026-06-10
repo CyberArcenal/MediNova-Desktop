@@ -5,7 +5,13 @@ import Layout from "../layouts/Layout";
 import HelpPage from "../pages/help";
 import authAPI from "../api/core/auth";
 import Login from "../pages/auth/login";
-
+import Dashboard from "../pages/dashboard";
+import ClientList from "../pages/clients";
+import ClientAnalyticsPage from "../pages/clients/analytics";
+import AppointmentsListPage from "../pages/appointments/list";
+import AppointmentsCalendarPage from "../pages/appointments/calendar";
+import TreatmentsListPage from "../pages/treatments/list";
+import CategoriesPage from "../pages/treatments/categories";
 
 // ─── Generic Placeholder (for pages not yet built) ─────────────
 const PlaceholderPage = ({
@@ -74,8 +80,6 @@ function App() {
     }
   }, []);
 
-
-
   return (
     <Routes>
       {/* Public routes */}
@@ -91,8 +95,21 @@ function App() {
           </ProtectedRoute>
         }
       >
-
-
+        <Route index element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/clients/list" element={<ClientList />} />
+        <Route path="/clients/add" element={<ClientList />} />
+        <Route path="/clients/analytics" element={<ClientAnalyticsPage />} />
+        <Route path="/appointments/list" element={<AppointmentsListPage />} />
+        <Route path="/appointments/create" element={<AppointmentsListPage />} />
+        <Route
+          path="/appointments/calendar"
+          element={<AppointmentsCalendarPage />}
+        />
+        <Route path="/treatments/list" element={<TreatmentsListPage />} />
+        <Route path="/treatments/add" element={<TreatmentsListPage />} />
+        <Route path="/treatments/categories" element={<CategoriesPage />} />
+        <Route path="/treatments/categories/add" element={<CategoriesPage />} />
         {/* 404 – must be last */}
         <Route
           path="*"

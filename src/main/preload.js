@@ -2,6 +2,7 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("backendAPI", {
+  dashboard: (method, params) => ipcRenderer.invoke('medinova:dashboard', { method, params }),
   clients: (method, params) =>
     ipcRenderer.invoke("medinova:clients", { method, params }),
   appointments: (method, params) =>

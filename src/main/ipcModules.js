@@ -15,6 +15,7 @@ const ipcModules = [
   "./ipc/core/roles/index.ipc.js",
   "./ipc/core/auth/index.ipc.js",
   "./ipc/core/themes/index.ipc.js",
+  "./ipc/core/dashboard/index.ipc.js", 
 ];
 
 module.exports = { ipcModules };
