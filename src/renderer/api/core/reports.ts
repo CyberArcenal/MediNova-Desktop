@@ -18,15 +18,53 @@ export interface GenerateReportDto {
   parameters?: string;
 }
 
+// Revenue report related DTOs
+export interface RevenueDailyDto {
+  date: string;
+  revenue: number;
+  appointmentCount: number;
+}
+
+export interface RevenueByTreatmentDto {
+  treatmentId: number;
+  treatmentName: string;
+  count: number;
+  revenue: number;
+  percentage: number;
+}
+
+export interface RevenueByCategoryDto {
+  categoryId?: number;
+  categoryName?: string;
+  revenue: number;
+  appointmentCount: number;
+  percentage: number;
+}
+
+export interface RevenueByStaffDto {
+  staffId?: number;
+  staffName?: string;
+  appointmentCount: number;
+  revenue: number;
+  percentage: number;
+}
+
+export interface RevenueByPaymentMethodDto {
+  method: string;
+  amount: number;
+  count: number;
+  percentage: number;
+}
+
 export interface RevenueReportDto {
   startDate: string;
   endDate: string;
   totalRevenue: number;
-  dailyBreakdown: Array<{ date: string; revenue: number; appointmentCount: number }>;
-  byTreatment: Array<{ treatmentId: number; treatmentName: string; count: number; revenue: number; percentage: number }>;
-  byCategory: Array<{ categoryId?: number; categoryName?: string; revenue: number; appointmentCount: number; percentage: number }>;
-  byStaff: Array<{ staffId?: number; staffName?: string; appointmentCount: number; revenue: number; percentage: number }>;
-  byPaymentMethod: Array<{ method: string; amount: number; count: number; percentage: number }>;
+  dailyBreakdown: RevenueDailyDto[];
+  byTreatment: RevenueByTreatmentDto[];
+  byCategory: RevenueByCategoryDto[];
+  byStaff: RevenueByStaffDto[];
+  byPaymentMethod: RevenueByPaymentMethodDto[];
 }
 
 export interface ReportsAPI {

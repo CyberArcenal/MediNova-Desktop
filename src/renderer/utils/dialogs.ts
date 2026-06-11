@@ -190,10 +190,10 @@ class DialogManager {
   }
 
   private escapeHtml(str: string): string {
-    return str.replace(/[&<>]/g, function(m) {
-      if (m === '&') return '&amp;';
-      if (m === '<') return '&lt;';
-      if (m === '>') return '&gt;';
+    return str.replace(/[&<>]/g, function (m) {
+      if (m === "&") return "&amp;";
+      if (m === "<") return "&lt;";
+      if (m === ">") return "&gt;";
       return m;
     });
   }
@@ -301,10 +301,16 @@ class DialogManager {
         else if (e.key === "Enter") onConfirm();
       };
 
-      dialog.querySelector<HTMLButtonElement>(".confirm-btn")!.addEventListener("click", onConfirm);
-      dialog.querySelector<HTMLButtonElement>(".cancel-btn")!.addEventListener("click", onCancel);
+      dialog
+        .querySelector<HTMLButtonElement>(".confirm-btn")!
+        .addEventListener("click", onConfirm);
+      dialog
+        .querySelector<HTMLButtonElement>(".cancel-btn")!
+        .addEventListener("click", onCancel);
       if (showCloseButton) {
-        dialog.querySelector<HTMLButtonElement>(".close-btn")!.addEventListener("click", onCancel);
+        dialog
+          .querySelector<HTMLButtonElement>(".close-btn")!
+          .addEventListener("click", onCancel);
       }
       backdrop.addEventListener("click", onCancel);
       document.addEventListener("keydown", onKeyDown);
@@ -390,7 +396,9 @@ class DialogManager {
         if (e.key === "Escape" || e.key === "Enter") onConfirm();
       };
 
-      dialog.querySelector<HTMLButtonElement>(".alert-btn")!.addEventListener("click", onConfirm);
+      dialog
+        .querySelector<HTMLButtonElement>(".alert-btn")!
+        .addEventListener("click", onConfirm);
       backdrop.addEventListener("click", onConfirm);
       document.addEventListener("keydown", onKeyDown);
 
@@ -422,6 +430,16 @@ export const closeAllDialogs = (): void => dialogManager.closeAllDialogs();
 
 export const dialogs = {
   confirm: showConfirm,
+  prompt: (options: {
+    title: string;
+    message: string;
+    defaultValue?: string;
+  }): Promise<string | null> => {
+    return new Promise((resolve) => {
+      const result = window.prompt(options.message, options.defaultValue);
+      resolve(result);
+    });
+  },
   alert: showAlert,
   closeAll: closeAllDialogs,
   delete: (itemName?: string) =>

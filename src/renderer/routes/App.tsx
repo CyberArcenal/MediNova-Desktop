@@ -12,6 +12,22 @@ import AppointmentsListPage from "../pages/appointments/list";
 import AppointmentsCalendarPage from "../pages/appointments/calendar";
 import TreatmentsListPage from "../pages/treatments/list";
 import CategoriesPage from "../pages/treatments/categories";
+import PackagesPage from "../pages/treatments/packages";
+import StaffListPage from "../pages/staff/list";
+import StaffSchedulePage from "../pages/staff/schedule";
+import StaffPerformancePage from "../pages/staff/performance";
+import InvoicesPage from "../pages/billing/invoices";
+import PaymentsPage from "../pages/billing/payments";
+import RevenueReportPage from "../pages/reports/revenue";
+import AppointmentsReportPage from "../pages/reports/appointments";
+import ClientRetentionPage from "../pages/reports/clients";
+import AnalyticsPage from "../pages/analytics";
+import PhotosPage from "../pages/photos";
+import NotificationsPage from "../pages/notifications";
+import GeneralSettingsPage from "../pages/settings/general";
+import UserManagementPage from "../pages/settings/users";
+import BackupSettingsPage from "../pages/settings/backup";
+import ProfilePage from "../pages/profile";
 
 // ─── Generic Placeholder (for pages not yet built) ─────────────
 const PlaceholderPage = ({
@@ -110,6 +126,30 @@ function App() {
         <Route path="/treatments/add" element={<TreatmentsListPage />} />
         <Route path="/treatments/categories" element={<CategoriesPage />} />
         <Route path="/treatments/categories/add" element={<CategoriesPage />} />
+        <Route path="/packages" element={<PackagesPage />} />
+        <Route path="/treatments/packages" element={<PackagesPage />} />{" "}
+        {/* optional if menu uses both */}
+        <Route path="/packages/add" element={<PackagesPage />} />
+        <Route path="/staff/list" element={<StaffListPage />} />
+        <Route path="/staff/add" element={<StaffListPage />} />
+        <Route path="/staff/schedule" element={<StaffSchedulePage />} />
+        <Route path="/staff/performance" element={<StaffPerformancePage />} />
+        <Route path="/invoices" element={<InvoicesPage />} />
+        <Route path="/reports/revenue" element={<RevenueReportPage />} />
+        <Route
+          path="/reports/appointments"
+          element={<AppointmentsReportPage />}
+        />
+        <Route path="/reports/clients" element={<ClientRetentionPage />} />
+        <Route path="/analytics" element={<AnalyticsPage />} />
+        <Route path="/photos" element={<PhotosPage />} />
+        <Route path="/notifications" element={<NotificationsPage />} />
+        <Route path="/payments" element={<PaymentsPage />} />
+        <Route path="/settings/general" element={<GeneralSettingsPage />} />
+        <Route path="/settings/users" element={<UserManagementPage />} />
+        <Route path="/settings/users/add" element={<UserManagementPage />} />
+        <Route path="/settings/backup" element={<BackupSettingsPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
         {/* 404 – must be last */}
         <Route
           path="*"

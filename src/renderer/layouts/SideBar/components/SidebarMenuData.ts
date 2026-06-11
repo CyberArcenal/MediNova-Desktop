@@ -101,7 +101,7 @@ export const menuItems: MenuItem[] = [
     children: [
       { path: "/invoices", name: "Invoices", icon: FileText },
       { path: "/payments", name: "Payments", icon: CreditCard },
-      { path: "/payments/records", name: "Payment History", icon: FileSpreadsheet },
+      // { path: "/payments/records", name: "Payment History", icon: FileSpreadsheet },
     ],
   },
   // Reports
